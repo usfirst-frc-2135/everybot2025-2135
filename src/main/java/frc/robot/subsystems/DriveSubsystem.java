@@ -4,24 +4,6 @@
 
 package frc.robot.subsystems;
 
-// import com.ctre.phoenix.motorcontrol.ControlMode;
-// import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-// import com.ctre.phoenix6.configs.TalonFXConfiguration;
-// import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
-// import com.ctre.phoenix6.configs.CANcoderConfiguration;
-// import com.ctre.phoenix6.configs.CANrangeConfiguration;
-// import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
-// import com.ctre.phoenix6.signals.GravityTypeValue;
-// import com.ctre.phoenix6.signals.InvertedValue;
-// import com.ctre.phoenix6.signals.NeutralModeValue;
-// import com.ctre.phoenix6.signals.ReverseLimitSourceValue;
-// import com.ctre.phoenix6.signals.SensorDirectionValue;
-// import com.ctre.phoenix6.signals.StaticFeedforwardSignValue;
-// import com.ctre.phoenix6.signals.UpdateModeValue;
-// import edu.wpi.first.wpilibj.motorcontrol.MotorController;
-// import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-//import frc.robot.Constants.DriveConstants;
-
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -41,36 +23,6 @@ public class DriveSubsystem extends SubsystemBase {
   TalonSRXConfiguration DriveSRXConfig(boolean inverted) {
     TalonSRXConfiguration DriveConfig = new TalonSRXConfiguration();
 
-    // DriveConfig.SupplyCurrentLimit = 45.0; // Amps
-    // DriveConfig.SupplyCurrentLowerLimit = 30.0; // Amps
-    // DriveConfig.SupplyCurrentLowerTime = 0.080; // Seconds
-    // DriveConfig.SupplyCurrentLimitEnable = true;
-
-    // DriveConfig.StatorCurrentLimit = 120.0; // Amps
-    // DriveConfig.StatorCurrentLimitEnable = true;
-
-    // Feedback settings
-    // elevatorConfig.Feedback.*
-
-    // Hardware limit switches - NONE
-    // elevatorConfig.HardwareLimitSwitch.*
-
-    // Motion Magic settings
-    // DriveConfig.MotionMagicCruiseVelocity = 82.17; // Rotations / second
-    // DriveConfig.MotionMagicAcceleration = 300.0; // Rotations / second ^ 2
-    // DriveConfig.MotionMagicJerk = 3200; // Rotations / second ^ 3
-
-    // DriveConfig.DutyCycleNeutralDeadband = 0.001; // Percentage
-    // DriveConfig.Inverted = ((inverted) ? InvertedValue.Clockwise_Positive :
-    // InvertedValue.CounterClockwise_Positive);
-    // DriveConfig.NeutralMode = NeutralModeValue.Brake;
-
-    // elevatorConfig.SoftwareLimitSwitch.ReverseSoftLimitThreshold min; //
-    // Rotations
-    // elevatorConfig.SoftwareLimitSwitch.ReverseSoftLimitEnable True;
-    // elevatorConfig.SoftwareLimitSwitch.ForwardSoftLimitThreshold max; //
-    // Rotations
-    // elevatorConfig.SoftwareLimitSwitch.ForwardSoftLimitEnable True;
     return DriveConfig;
   }
 
@@ -92,68 +44,6 @@ public class DriveSubsystem extends SubsystemBase {
     leftFollowerSRX.follow(leftLeaderSRX);
     rightFollowerSRX.follow(rightLeaderSRX);
 
-    // create brushed motors for drive
-    // leftLeader = new SparkMax(DriveConstants.LEFT_LEADER_ID, MotorType.kBrushed);
-    // leftFollower = new SparkMax(DriveConstants.LEFT_FOLLOWER_ID,
-    // MotorType.kBrushed);
-    // rightLeader = new SparkMax(DriveConstants.RIGHT_LEADER_ID,
-    // MotorType.kBrushed);
-    // rightFollower = new SparkMax(DriveConstants.RIGHT_FOLLOWER_ID,
-    // MotorType.kBrushed);
-
-    // set up differential drive class
-    // drive = new DifferentialDrive(leftLeader, rightLeader);
-
-    // cfg = CTREConfigs6.driveFXConfig(true, min, max);
-    // boolean leftValid = PhoenixUtil6.getInstance(
-    // ).TalonSRXInitialize6(leftLeaderSRX, kSubsystemName + "Left", cfg);
-    // cfg = CTREConfigs6.elevatorFXConfig(false, min, max);
-    // boolean rightValid = PhoenixUtil6.getInstance(
-    // ).TalonSRXInitialize6(rightLeaderSRX, kSubsystemName + "Right", cfg);
-    // m_motorsValid = leftValid && rightValid;
-
-    // Set CAN timeout. Because this project only sets parameters once on
-    // construction, the timeout can be long without blocking robot operation. Code
-    // which sets or gets parameters during operation may need a shorter timeout.
-
-    // leftLeader.setCANTimeout(250);
-    // rightLeader.setCANTimeout(250);
-    // leftFollower.setCANTimeout(250);
-    // rightFollower.setCANTimeout(250);
-
-    // Create the configuration to apply to motors. Voltage compensation
-    // helps the robot perform more similarly on different
-    // battery voltages (at the cost of a little bit of top speed on a fully charged
-    // battery). The current limit helps prevent tripping
-    // breakers.
-    // SparkMaxConfig config = new SparkMaxConfig();
-    // config.voltageCompensation(DriveConstants.DRIVE_MOTOR_VOLTAGE_COMP);
-    // config.smartCurrentLimit(DriveConstants.DRIVE_MOTOR_CURRENT_LIMIT);
-
-    // Set configuration to follow leader and then apply it to corresponding
-    // follower. Resetting in case a new controller is swapped
-    // in and persisting in case of a controller reset due to breaker trip
-
-    // config.follow(leftLeader);
-    // leftFollower.configure(config, ResetMode.kResetSafeParameters,
-    // PersistMode.kPersistParameters);
-    // config.follow(rightLeader);
-    // rightFollower.configure(config, ResetMode.kResetSafeParameters,
-    // PersistMode.kPersistParameters);
-
-    // Remove following, then apply config to right leader
-    // config.disableFollowerMode();
-    // // rightLeader.configure(config, ResetMode.kResetSafeParameters,
-    // PersistMode.kPersistParameters);
-    // rightLeaderSRX.configure(config, ResetMode.kResetSafeParameters);
-
-    // // Set conifg to inverted and then apply to left leader. Set Left side
-    // inverted
-    // // so that postive values drive both sides forward
-    // leftMotorGroup.inverted(true);
-    // //leftLeader.configure(config, ResetMode.kResetSafeParameters,
-    // PersistMode.kPersistParameters);
-    // leftLeaderSRX.configure(config, ResetMode.kResetSafeParameters);
   }
 
   @Override

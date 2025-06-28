@@ -1,10 +1,5 @@
 package frc.robot.subsystems;
 
-// import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-// import frc.robot.Constants.RollerConstants;
-// import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
-//import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -19,15 +14,6 @@ public class RollerSubsystem extends SubsystemBase {
         // Set up the roller motor as a brushed motor
         rollerMotor = new WPI_TalonSRX(5);
 
-        // Create and apply configuration for roller motor. Voltage compensation helps
-        // the roller behave the same as the battery
-        // voltage dips. The current limit helps prevent breaker trips or burning out
-        // the motor in the event the roller stalls.
-        // rollerConfig.voltageCompensation(RollerConstants.ROLLER_MOTOR_VOLTAGE_COMP);
-        // rollerConfig.smartCurrentLimit(RollerConstants.ROLLER_MOTOR_CURRENT_LIMIT);
-        // rollerConfig.idleMode(IdleMode.kBrake);
-        // rollerMotor.configure(rollerConfig, ResetMode.kResetSafeParameters,
-        // PersistMode.kPersistParameters);
     }
 
     @Override
