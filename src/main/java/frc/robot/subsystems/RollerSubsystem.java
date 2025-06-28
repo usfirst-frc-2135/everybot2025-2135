@@ -13,7 +13,6 @@ public class RollerSubsystem extends SubsystemBase {
     public RollerSubsystem() {
         // Set up the roller motor as a brushed motor
         rollerMotor = new WPI_TalonSRX(5);
-
     }
 
     @Override
@@ -29,5 +28,4 @@ public class RollerSubsystem extends SubsystemBase {
     public void runRoller(double speed) {
         rollerMotor.set(speed);
     }
-
 }

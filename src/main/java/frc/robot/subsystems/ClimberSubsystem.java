@@ -11,7 +11,6 @@ public class ClimberSubsystem extends SubsystemBase {
      * This subsytem that controls the climber.
      */
     public ClimberSubsystem() {
-
     }
 
     @Override
@@ -28,5 +27,4 @@ public class ClimberSubsystem extends SubsystemBase {
     public void runClimber(double speed) {
         m_climbMotor.set(speed);
     }
-
 }

@@ -11,7 +11,6 @@ public class ArmSubsystem extends SubsystemBase {
      * This subsytem that controls the arm.
      */
     public ArmSubsystem() {
-
         // Set up the arm motor as a brushed motor
         armMotor = new WPI_TalonSRX(6);
 
