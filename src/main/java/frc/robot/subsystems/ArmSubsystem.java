@@ -1,18 +1,19 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.SparkBase.PersistMode;
-import com.revrobotics.spark.SparkBase.ResetMode;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.config.SparkMaxConfig;
-import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+//import com.revrobotics.spark.SparkMax;
+// import com.revrobotics.spark.SparkBase.PersistMode;
+// import com.revrobotics.spark.SparkBase.ResetMode;
+// import com.revrobotics.spark.SparkLowLevel.MotorType;
+// import com.revrobotics.spark.config.SparkMaxConfig;
+// import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+//import frc.robot.Constants.ArmConstants;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ArmConstants;
 
 public class ArmSubsystem extends SubsystemBase {
 
-    private final SparkMax armMotor;
+    private final WPI_TalonSRX armMotor;
 
     /**
      * This subsytem that controls the arm.
@@ -20,22 +21,23 @@ public class ArmSubsystem extends SubsystemBase {
     public ArmSubsystem() {
 
         // Set up the arm motor as a brushed motor
-        armMotor = new SparkMax(ArmConstants.ARM_MOTOR_ID, MotorType.kBrushed);
+        armMotor = new WPI_TalonSRX(6);
 
         // Set can timeout. Because this project only sets parameters once on
         // construction, the timeout can be long without blocking robot operation. Code
         // which sets or gets parameters during operation may need a shorter timeout.
-        armMotor.setCANTimeout(250);
+        // armMotor.setCANTimeout(250);
 
-        // Create and apply configuration for arm motor. Voltage compensation helps
-        // the arm behave the same as the battery
-        // voltage dips. The current limit helps prevent breaker trips or burning out
-        // the motor in the event the arm stalls.
-        SparkMaxConfig armConfig = new SparkMaxConfig();
-        armConfig.voltageCompensation(10);
-        armConfig.smartCurrentLimit(ArmConstants.ARM_MOTOR_CURRENT_LIMIT);
-        armConfig.idleMode(IdleMode.kBrake);
-        armMotor.configure(armConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        // // Create and apply configuration for arm motor. Voltage compensation helps
+        // // the arm behave the same as the battery
+        // // voltage dips. The current limit helps prevent breaker trips or burning out
+        // // the motor in the event the arm stalls.
+        // SparkMaxConfig armConfig = new SparkMaxConfig();
+        // armConfig.voltageCompensation(10);
+        // armConfig.smartCurrentLimit(ArmConstants.ARM_MOTOR_CURRENT_LIMIT);
+        // armConfig.idleMode(IdleMode.kBrake);
+        // armMotor.configure(armConfig, ResetMode.kResetSafeParameters,
+        // PersistMode.kPersistParameters);
     }
 
     @Override
