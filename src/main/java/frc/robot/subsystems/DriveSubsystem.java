@@ -48,34 +48,16 @@ public class DriveSubsystem extends SubsystemBase {
   /**
    * The subsystem used to drive the robot.
    */
-  
-  public DriveSubsystem() {
-    
+  TalonSRXConfiguration DriveSRXConfig(boolean inverted) {
+    TalonSRXConfiguration DriveConfig = new TalonSRXConfiguration();
 
-    // create brushed motors for drive
-    // leftLeader = new SparkMax(DriveConstants.LEFT_LEADER_ID, MotorType.kBrushed);
-    // leftFollower = new SparkMax(DriveConstants.LEFT_FOLLOWER_ID, MotorType.kBrushed);
-    // rightLeader = new SparkMax(DriveConstants.RIGHT_LEADER_ID, MotorType.kBrushed);
-    // rightFollower = new SparkMax(DriveConstants.RIGHT_FOLLOWER_ID, MotorType.kBrushed);
+    // DriveConfig.SupplyCurrentLimit = 45.0; // Amps
+    // DriveConfig.SupplyCurrentLowerLimit = 30.0; // Amps
+    // DriveConfig.SupplyCurrentLowerTime = 0.080; // Seconds
+    // DriveConfig.SupplyCurrentLimitEnable = true;
 
-    leftLeaderSRX = new WPI_TalonSRX(1);
-    leftFollowerSRX = new WPI_TalonSRX(2);
-    rightLeaderSRX = new WPI_TalonSRX(3);
-    rightFollowerSRX = new WPI_TalonSRX(4);
-
-    drive = new DifferentialDrive(leftLeaderSRX, rightLeaderSRX);
-
-    TalonSRXConfiguration DriveSRXConfig(boolean inverted, double min, double max)
-    {
-      TalonSRXConfiguration DriveConfig = new TalonSRXConfiguration( );
-
-      DriveConfig.SupplyCurrentLimit = 45.0;           // Amps
-      DriveConfig.SupplyCurrentLowerLimit = 30.0;      // Amps 
-      DriveConfig.SupplyCurrentLowerTime = 0.080;      // Seconds
-      DriveConfig.SupplyCurrentLimitEnable = true;
-
-      DriveConfig.StatorCurrentLimit = 120.0;          // Amps
-      DriveConfig.StatorCurrentLimitEnable = true;
+    // DriveConfig.StatorCurrentLimit = 120.0; // Amps
+    // DriveConfig.StatorCurrentLimitEnable = true;
 
     // Feedback settings
     // elevatorConfig.Feedback.*
@@ -84,34 +66,66 @@ public class DriveSubsystem extends SubsystemBase {
     // elevatorConfig.HardwareLimitSwitch.*
 
     // Motion Magic settings
-      DriveConfig.MotionMagicCruiseVelocity = 82.17;     // Rotations / second
-      DriveConfig.MotionMagicAcceleration = 300.0;       // Rotations / second ^ 2
-      DriveConfig.MotionMagicJerk = 3200;                // Rotations / second ^ 3
+    // DriveConfig.MotionMagicCruiseVelocity = 82.17; // Rotations / second
+    // DriveConfig.MotionMagicAcceleration = 300.0; // Rotations / second ^ 2
+    // DriveConfig.MotionMagicJerk = 3200; // Rotations / second ^ 3
 
-      DriveConfig.DutyCycleNeutralDeadband = 0.001;      // Percentage
-      DriveConfig.Inverted = ((inverted) ? InvertedValue.Clockwise_Positive : InvertedValue.CounterClockwise_Positive);
-      DriveConfig.NeutralMode = NeutralModeValue.Brake;
-      
-      elevatorConfig.SoftwareLimitSwitch.ReverseSoftLimitThreshold min; // Rotations
-      elevatorConfig.SoftwareLimitSwitch.ReverseSoftLimitEnable True;
-      elevatorConfig.SoftwareLimitSwitch.ForwardSoftLimitThreshold max; // Rotations
-      elevatorConfig.SoftwareLimitSwitch.ForwardSoftLimitEnable True;
-      return DriveConfig;
-    }
+    // DriveConfig.DutyCycleNeutralDeadband = 0.001; // Percentage
+    // DriveConfig.Inverted = ((inverted) ? InvertedValue.Clockwise_Positive :
+    // InvertedValue.CounterClockwise_Positive);
+    // DriveConfig.NeutralMode = NeutralModeValue.Brake;
+
+    // elevatorConfig.SoftwareLimitSwitch.ReverseSoftLimitThreshold min; //
+    // Rotations
+    // elevatorConfig.SoftwareLimitSwitch.ReverseSoftLimitEnable True;
+    // elevatorConfig.SoftwareLimitSwitch.ForwardSoftLimitThreshold max; //
+    // Rotations
+    // elevatorConfig.SoftwareLimitSwitch.ForwardSoftLimitEnable True;
+    return DriveConfig;
+  }
+
+  public DriveSubsystem() {
+
+    // create brushed motors for drive
+    // leftLeader = new SparkMax(DriveConstants.LEFT_LEADER_ID, MotorType.kBrushed);
+    // leftFollower = new SparkMax(DriveConstants.LEFT_FOLLOWER_ID,
+    // MotorType.kBrushed);
+    // rightLeader = new SparkMax(DriveConstants.RIGHT_LEADER_ID,
+    // MotorType.kBrushed);
+    // rightFollower = new SparkMax(DriveConstants.RIGHT_FOLLOWER_ID,
+    // MotorType.kBrushed);
+
+    leftLeaderSRX = new WPI_TalonSRX(1);
+    leftFollowerSRX = new WPI_TalonSRX(2);
+    rightLeaderSRX = new WPI_TalonSRX(3);
+    rightFollowerSRX = new WPI_TalonSRX(4);
+
+    drive = new DifferentialDrive(leftLeaderSRX, rightLeaderSRX);
+
+    leftLeaderSRX.setInverted(true);
+    rightLeaderSRX.setInverted(false);
+
+    leftLeaderSRX.configAllSettings(null);
+    rightLeaderSRX.configAllSettings(null);
+
+    leftFollowerSRX.follow(leftLeaderSRX);
+    rightFollowerSRX.follow(rightLeaderSRX);
 
     // set up differential drive class
-    //drive = new DifferentialDrive(leftLeader, rightLeader);
+    // drive = new DifferentialDrive(leftLeader, rightLeader);
 
-    cfg = CTREConfigs6.driveFXConfig(true, min, max);
-    boolean leftValid = PhoenixUtil6.getInstance( ).TalonSRXInitialize6(leftLeaderSRX, kSubsystemName + "Left", cfg);
-    cfg = CTREConfigs6.elevatorFXConfig(false, min, max);
-    boolean rightValid = PhoenixUtil6.getInstance( ).TalonSRXInitialize6(rightLeaderSRX, kSubsystemName + "Right", cfg);
-    m_motorsValid = leftValid && rightValid;
-    
+    // cfg = CTREConfigs6.driveFXConfig(true, min, max);
+    // boolean leftValid = PhoenixUtil6.getInstance(
+    // ).TalonSRXInitialize6(leftLeaderSRX, kSubsystemName + "Left", cfg);
+    // cfg = CTREConfigs6.elevatorFXConfig(false, min, max);
+    // boolean rightValid = PhoenixUtil6.getInstance(
+    // ).TalonSRXInitialize6(rightLeaderSRX, kSubsystemName + "Right", cfg);
+    // m_motorsValid = leftValid && rightValid;
+
     // Set CAN timeout. Because this project only sets parameters once on
     // construction, the timeout can be long without blocking robot operation. Code
     // which sets or gets parameters during operation may need a shorter timeout.
-   
+
     // leftLeader.setCANTimeout(250);
     // rightLeader.setCANTimeout(250);
     // leftFollower.setCANTimeout(250);
@@ -122,32 +136,34 @@ public class DriveSubsystem extends SubsystemBase {
     // battery voltages (at the cost of a little bit of top speed on a fully charged
     // battery). The current limit helps prevent tripping
     // breakers.
-    SparkMaxConfig config = new SparkMaxConfig();
-    config.voltageCompensation(DriveConstants.DRIVE_MOTOR_VOLTAGE_COMP);
-    config.smartCurrentLimit(DriveConstants.DRIVE_MOTOR_CURRENT_LIMIT);
+    // SparkMaxConfig config = new SparkMaxConfig();
+    // config.voltageCompensation(DriveConstants.DRIVE_MOTOR_VOLTAGE_COMP);
+    // config.smartCurrentLimit(DriveConstants.DRIVE_MOTOR_CURRENT_LIMIT);
 
     // Set configuration to follow leader and then apply it to corresponding
     // follower. Resetting in case a new controller is swapped
     // in and persisting in case of a controller reset due to breaker trip
 
     // config.follow(leftLeader);
-    // leftFollower.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    // leftFollower.configure(config, ResetMode.kResetSafeParameters,
+    // PersistMode.kPersistParameters);
     // config.follow(rightLeader);
-    // rightFollower.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-
-    leftFollowerSRX.follow(leftLeaderSRX);
-    rightFollowerSRX.follow(rightLeaderSRX);
+    // rightFollower.configure(config, ResetMode.kResetSafeParameters,
+    // PersistMode.kPersistParameters);
 
     // Remove following, then apply config to right leader
-    config.disableFollowerMode();
-    // rightLeader.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    rightLeaderSRX.configure(config, ResetMode.kResetSafeParameters);
-    
-    // Set conifg to inverted and then apply to left leader. Set Left side inverted
-    // so that postive values drive both sides forward
-    leftMotorGroup.inverted(true);
-    //leftLeader.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    leftLeaderSRX.configure(config, ResetMode.kResetSafeParameters);
+    // config.disableFollowerMode();
+    // // rightLeader.configure(config, ResetMode.kResetSafeParameters,
+    // PersistMode.kPersistParameters);
+    // rightLeaderSRX.configure(config, ResetMode.kResetSafeParameters);
+
+    // // Set conifg to inverted and then apply to left leader. Set Left side
+    // inverted
+    // // so that postive values drive both sides forward
+    // leftMotorGroup.inverted(true);
+    // //leftLeader.configure(config, ResetMode.kResetSafeParameters,
+    // PersistMode.kPersistParameters);
+    // leftLeaderSRX.configure(config, ResetMode.kResetSafeParameters);
   }
 
   @Override
