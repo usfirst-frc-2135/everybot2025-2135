@@ -1,11 +1,5 @@
 package frc.robot.subsystems;
 
-//import com.revrobotics.spark.SparkMax;
-// import com.revrobotics.spark.SparkBase.PersistMode;
-// import com.revrobotics.spark.SparkBase.ResetMode;
-// import com.revrobotics.spark.SparkLowLevel.MotorType;
-// import com.revrobotics.spark.config.SparkMaxConfig;
-// import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 //import frc.robot.Constants.ArmConstants;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -32,7 +26,6 @@ public class ArmSubsystem extends SubsystemBase {
         // // the arm behave the same as the battery
         // // voltage dips. The current limit helps prevent breaker trips or burning out
         // // the motor in the event the arm stalls.
-        // SparkMaxConfig armConfig = new SparkMaxConfig();
         // armConfig.voltageCompensation(10);
         // armConfig.smartCurrentLimit(ArmConstants.ARM_MOTOR_CURRENT_LIMIT);
         // armConfig.idleMode(IdleMode.kBrake);

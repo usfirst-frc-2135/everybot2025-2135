@@ -4,11 +4,6 @@
 
 package frc.robot.subsystems;
 
-// import com.revrobotics.spark.SparkBase.PersistMode;
-// import com.revrobotics.spark.SparkBase.ResetMode;
-// import com.revrobotics.spark.SparkLowLevel.MotorType;
-// import com.revrobotics.spark.SparkMax;
-// import com.revrobotics.spark.config.SparkMaxConfig;
 // import com.ctre.phoenix.motorcontrol.ControlMode;
 // import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 // import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -25,19 +20,14 @@ package frc.robot.subsystems;
 // import com.ctre.phoenix6.signals.UpdateModeValue;
 // import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 // import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+//import frc.robot.Constants.DriveConstants;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-//import frc.robot.Constants.DriveConstants;
 
 public class DriveSubsystem extends SubsystemBase {
-  // private final SparkMax leftLeader;
-  // private final SparkMax leftFollower;
-  // private final SparkMax rightLeader;
-  // private final SparkMax rightFollower;
   private final WPI_TalonSRX leftLeaderSRX;
   private final WPI_TalonSRX leftFollowerSRX;
   private final WPI_TalonSRX rightLeaderSRX;
@@ -86,15 +76,6 @@ public class DriveSubsystem extends SubsystemBase {
 
   public DriveSubsystem() {
 
-    // create brushed motors for drive
-    // leftLeader = new SparkMax(DriveConstants.LEFT_LEADER_ID, MotorType.kBrushed);
-    // leftFollower = new SparkMax(DriveConstants.LEFT_FOLLOWER_ID,
-    // MotorType.kBrushed);
-    // rightLeader = new SparkMax(DriveConstants.RIGHT_LEADER_ID,
-    // MotorType.kBrushed);
-    // rightFollower = new SparkMax(DriveConstants.RIGHT_FOLLOWER_ID,
-    // MotorType.kBrushed);
-
     leftLeaderSRX = new WPI_TalonSRX(1);
     leftFollowerSRX = new WPI_TalonSRX(2);
     rightLeaderSRX = new WPI_TalonSRX(3);
@@ -110,6 +91,15 @@ public class DriveSubsystem extends SubsystemBase {
 
     leftFollowerSRX.follow(leftLeaderSRX);
     rightFollowerSRX.follow(rightLeaderSRX);
+
+    // create brushed motors for drive
+    // leftLeader = new SparkMax(DriveConstants.LEFT_LEADER_ID, MotorType.kBrushed);
+    // leftFollower = new SparkMax(DriveConstants.LEFT_FOLLOWER_ID,
+    // MotorType.kBrushed);
+    // rightLeader = new SparkMax(DriveConstants.RIGHT_LEADER_ID,
+    // MotorType.kBrushed);
+    // rightFollower = new SparkMax(DriveConstants.RIGHT_FOLLOWER_ID,
+    // MotorType.kBrushed);
 
     // set up differential drive class
     // drive = new DifferentialDrive(leftLeader, rightLeader);
