@@ -4,10 +4,12 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.DriveConstants;
 
 public class DriveSubsystem extends SubsystemBase {
   private final WPI_TalonSRX leftLeaderSRX;
@@ -15,31 +17,40 @@ public class DriveSubsystem extends SubsystemBase {
   private final WPI_TalonSRX rightLeaderSRX;
   private final WPI_TalonSRX rightFollowerSRX;
 
-  private final DifferentialDrive drive;
+  public final DifferentialDrive drive;
 
   /**
    * The subsystem used to drive the robot.
    */
-  TalonSRXConfiguration DriveSRXConfig(boolean inverted) {
-    TalonSRXConfiguration DriveConfig = new TalonSRXConfiguration();
+  TalonSRXConfiguration DriveSRXConfig() {
+    TalonSRXConfiguration driveConfig = new TalonSRXConfiguration();
 
-    return DriveConfig;
+    return driveConfig;
   }
 
   public DriveSubsystem() {
 
-    leftLeaderSRX = new WPI_TalonSRX(1);
-    leftFollowerSRX = new WPI_TalonSRX(2);
-    rightLeaderSRX = new WPI_TalonSRX(3);
-    rightFollowerSRX = new WPI_TalonSRX(4);
+    leftLeaderSRX = new WPI_TalonSRX(DriveConstants.LEFT_LEADER_ID);
+    leftFollowerSRX = new WPI_TalonSRX(DriveConstants.LEFT_FOLLOWER_ID);
+    rightLeaderSRX = new WPI_TalonSRX(DriveConstants.RIGHT_LEADER_ID);
+    rightFollowerSRX = new WPI_TalonSRX(DriveConstants.LEFT_FOLLOWER_ID);
 
     drive = new DifferentialDrive(leftLeaderSRX, rightLeaderSRX);
 
-    leftLeaderSRX.setInverted(true);
-    rightLeaderSRX.setInverted(false);
+    leftLeaderSRX.configAllSettings(DriveSRXConfig());
+    rightLeaderSRX.configAllSettings(DriveSRXConfig());
+    leftFollowerSRX.configAllSettings(DriveSRXConfig());
+    rightFollowerSRX.configAllSettings(DriveSRXConfig());
 
-    leftLeaderSRX.configAllSettings(null);
-    rightLeaderSRX.configAllSettings(null);
+    leftLeaderSRX.setNeutralMode(NeutralMode.Coast);
+    rightLeaderSRX.setNeutralMode(NeutralMode.Coast);
+    leftFollowerSRX.setNeutralMode(NeutralMode.Coast);
+    rightFollowerSRX.setNeutralMode(NeutralMode.Coast);
+
+    leftLeaderSRX.setInverted(false);
+    leftFollowerSRX.setInverted(false);
+    rightLeaderSRX.setInverted(true);
+    rightFollowerSRX.setInverted(true);
 
     leftFollowerSRX.follow(leftLeaderSRX);
     rightFollowerSRX.follow(rightLeaderSRX);

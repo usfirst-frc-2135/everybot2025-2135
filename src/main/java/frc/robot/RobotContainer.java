@@ -28,21 +28,24 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in
+ * the {@link Robot}
+ * periodic methods (other than the scheduler calls). Instead, the structure of
+ * the robot (including
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
 
   // The robot's subsystems and commands are defined here...
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.DRIVER_CONTROLLER_PORT);
+  private final CommandXboxController m_driverController = new CommandXboxController(
+      OperatorConstants.DRIVER_CONTROLLER_PORT);
   // You can remove this if you wish to have a single driver, note that you
   // may have to change the binding for left bumper.
-  private final CommandXboxController m_operatorController = 
-      new CommandXboxController(OperatorConstants.OPERATOR_CONTROLLER_PORT);
+  private final CommandXboxController m_operatorController = new CommandXboxController(
+      OperatorConstants.OPERATOR_CONTROLLER_PORT);
 
   // The autonomous chooser
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -55,7 +58,9 @@ public class RobotContainer {
   public final SimpleCoralAuto m_simpleCoralAuto = new SimpleCoralAuto(m_drive, m_roller, m_arm);
   public final DriveForwardAuto m_driveForwardAuto = new DriveForwardAuto(m_drive);
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  /**
+   * The container for the robot. Contains subsystems, OI devices, and commands.
+   */
   public RobotContainer() {
     // Set up command bindings
     configureBindings();
@@ -68,17 +73,22 @@ public class RobotContainer {
   }
 
   /**
-   * Use this method to define your trigger->command mappings. Triggers can be created via the
-   * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
+   * Use this method to define your trigger->command mappings. Triggers can be
+   * created via the
+   * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with
+   * an arbitrary
    * predicate, or via the named factories in {@link
-   * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for {@link
-   * CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
-   * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
+   * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for
+   * {@link
+   * CommandXboxController
+   * Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
+   * PS4} controllers or
+   * {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
    * joysticks}.
    */
   private void configureBindings() {
 
-    /** 
+    /**
      * Set the default command for the drive subsystem to an instance of the
      * DriveCommand with the values provided by the joystick axes on the driver
      * controller. The Y axis of the controller is inverted so that pushing the
@@ -92,16 +102,18 @@ public class RobotContainer {
         () -> true));
 
     /**
-     * Holding the left bumper (or whatever button you assign) will multiply the speed
-     * by a decimal to limit the max speed of the robot -> 
-     * 1 (100%) from the controller * .9 = 90% of the max speed when held (we also square it)
+     * Holding the left bumper (or whatever button you assign) will multiply the
+     * speed
+     * by a decimal to limit the max speed of the robot ->
+     * 1 (100%) from the controller * .9 = 90% of the max speed when held (we also
+     * square it)
      * 
-     * Slow mode is very valuable for line ups and the deep climb 
+     * Slow mode is very valuable for line ups and the deep climb
      * 
      * When switching to single driver mode switch to the B button
      */
-    m_driverController.leftBumper().whileTrue(new DriveCommand(m_drive, 
-        () -> -m_driverController.getLeftY() * DriveConstants.SLOW_MODE_MOVE,  
+    m_driverController.leftBumper().whileTrue(new DriveCommand(m_drive,
+        () -> -m_driverController.getLeftY() * DriveConstants.SLOW_MODE_MOVE,
         () -> -m_driverController.getRightX() * DriveConstants.SLOW_MODE_TURN,
         () -> true));
 
@@ -110,7 +122,7 @@ public class RobotContainer {
      * written in a more compact manner but are left verbose so the intent is clear.
      */
     m_operatorController.rightBumper().whileTrue(new AlgieInCommand(m_roller));
-    
+
     // Here we use a trigger as a button when it is pushed past a certain threshold
     m_operatorController.rightTrigger(.2).whileTrue(new AlgieOutCommand(m_roller));
 
@@ -123,7 +135,7 @@ public class RobotContainer {
 
     /**
      * Used to score coral, the stack command is for when there is already coral
-     * in L1 where you are trying to score. The numbers may need to be tuned, 
+     * in L1 where you are trying to score. The numbers may need to be tuned,
      * make sure the rollers do not wear on the plastic basket.
      */
     m_operatorController.x().whileTrue(new CoralOutCommand(m_roller));
@@ -142,7 +154,7 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-    public Command getAutonomousCommand() {
+  public Command getAutonomousCommand() {
     // The selected command will be run in autonomous
     return m_chooser.getSelected();
   }
