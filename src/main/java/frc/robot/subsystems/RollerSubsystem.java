@@ -1,15 +1,13 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import frc.robot.Constants.OperatorConstants;
+
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.RollerConstants;
 
 public class RollerSubsystem extends SubsystemBase
 {
-
     private final WPI_TalonSRX rollerMotor;
 
     TalonSRXConfiguration RollerSRXConfig( )

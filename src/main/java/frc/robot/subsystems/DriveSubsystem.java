@@ -7,74 +7,80 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
-public class DriveSubsystem extends SubsystemBase {
-  private final WPI_TalonSRX leftLeaderSRX;
-  private final WPI_TalonSRX leftFollowerSRX;
-  private final WPI_TalonSRX rightLeaderSRX;
-  private final WPI_TalonSRX rightFollowerSRX;
+public class DriveSubsystem extends SubsystemBase
+{
+  private final WPI_TalonSRX     leftLeader;
+  private final WPI_TalonSRX     leftFollower;
+  private final WPI_TalonSRX     rightLeader;
+  private final WPI_TalonSRX     rightFollower;
 
   public final DifferentialDrive drive;
 
   /**
    * The subsystem used to drive the robot.
    */
-  TalonSRXConfiguration DriveSRXConfig() {
-    TalonSRXConfiguration driveConfig = new TalonSRXConfiguration();
+  TalonSRXConfiguration DriveSRXConfig( )
+  {
+    TalonSRXConfiguration driveConfig = new TalonSRXConfiguration( );
 
     return driveConfig;
   }
 
-  public DriveSubsystem() {
+  public DriveSubsystem( )
+  {
 
-    leftLeaderSRX = new WPI_TalonSRX(DriveConstants.LEFT_LEADER_ID);
-    leftFollowerSRX = new WPI_TalonSRX(DriveConstants.LEFT_FOLLOWER_ID);
-    rightLeaderSRX = new WPI_TalonSRX(DriveConstants.RIGHT_LEADER_ID);
-    rightFollowerSRX = new WPI_TalonSRX(DriveConstants.LEFT_FOLLOWER_ID);
+    leftLeader = new WPI_TalonSRX(DriveConstants.LEFT_LEADER_ID);
+    leftFollower = new WPI_TalonSRX(DriveConstants.LEFT_FOLLOWER_ID);
+    rightLeader = new WPI_TalonSRX(DriveConstants.RIGHT_LEADER_ID);
+    rightFollower = new WPI_TalonSRX(DriveConstants.LEFT_FOLLOWER_ID);
 
-    drive = new DifferentialDrive(leftLeaderSRX, rightLeaderSRX);
+    drive = new DifferentialDrive(leftLeader, rightLeader);
 
-    leftLeaderSRX.configAllSettings(DriveSRXConfig());
-    rightLeaderSRX.configAllSettings(DriveSRXConfig());
-    leftFollowerSRX.configAllSettings(DriveSRXConfig());
-    rightFollowerSRX.configAllSettings(DriveSRXConfig());
+    leftLeader.configAllSettings(DriveSRXConfig( ));
+    rightLeader.configAllSettings(DriveSRXConfig( ));
+    leftFollower.configAllSettings(DriveSRXConfig( ));
+    rightFollower.configAllSettings(DriveSRXConfig( ));
 
-    leftLeaderSRX.setNeutralMode(NeutralMode.Coast);
-    rightLeaderSRX.setNeutralMode(NeutralMode.Coast);
-    leftFollowerSRX.setNeutralMode(NeutralMode.Coast);
-    rightFollowerSRX.setNeutralMode(NeutralMode.Coast);
+    leftLeader.setNeutralMode(NeutralMode.Coast);
+    rightLeader.setNeutralMode(NeutralMode.Coast);
+    leftFollower.setNeutralMode(NeutralMode.Coast);
+    rightFollower.setNeutralMode(NeutralMode.Coast);
 
-    leftLeaderSRX.setInverted(false);
-    leftFollowerSRX.setInverted(false);
-    rightLeaderSRX.setInverted(true);
-    rightFollowerSRX.setInverted(true);
+    leftLeader.setInverted(false);
+    leftFollower.setInverted(false);
+    rightLeader.setInverted(true);
+    rightFollower.setInverted(true);
 
-    leftFollowerSRX.follow(leftLeaderSRX);
-    rightFollowerSRX.follow(rightLeaderSRX);
-
+    leftFollower.follow(leftLeader);
+    rightFollower.follow(rightLeader);
   }
 
   @Override
-  public void periodic() {
-  }
+  public void periodic( )
+  {}
 
   /**
-   * Use this to control your drive train, with one axis of the controller moving
-   * the robot
+   * Use this to control your drive train, with one axis of the controller moving the robot
    * forwards and backwards with the other axis turning the robot.
    * 
    * Additionally if squared is true, it will square your controller inputs,
    * for instance pushing forwards on the control stick will yield
    * (0.5 * 0.5) = .25 or 25% power to the drivetrain.
    * 
-   * @param xSpeed    the speed forwards to back
-   * @param zRotation the speed to turn at
-   * @param squared   do you square the inputs from the controller
+   * @param xSpeed
+   *          the speed forwards to back
+   * @param zRotation
+   *          the speed to turn at
+   * @param squared
+   *          do you square the inputs from the controller
    */
-  public void driveArcade(double xSpeed, double zRotation, boolean squared) {
+  public void driveArcade(double xSpeed, double zRotation, boolean squared)
+  {
     drive.arcadeDrive(xSpeed, zRotation, squared);
   }
 
@@ -82,11 +88,15 @@ public class DriveSubsystem extends SubsystemBase {
    * Use this to drive the robot, with one stick controlling one
    * side of the drivetrain and the other stick controlling the other.
    * 
-   * @param leftSpeed  speed to drive the left side of the robot at
-   * @param rightSpeed speed to drive the right side of the robot at
-   * @param squared    do you square the inputs from the controller
+   * @param leftSpeed
+   *          speed to drive the left side of the robot at
+   * @param rightSpeed
+   *          speed to drive the right side of the robot at
+   * @param squared
+   *          do you square the inputs from the controller
    */
-  public void driveTank(double leftSpeed, double rightSpeed, boolean squared) {
+  public void driveTank(double leftSpeed, double rightSpeed, boolean squared)
+  {
     drive.tankDrive(leftSpeed, rightSpeed, squared);
   }
 }
