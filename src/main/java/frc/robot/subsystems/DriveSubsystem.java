@@ -7,16 +7,18 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.RollerConstants;
 
 public class DriveSubsystem extends SubsystemBase
 {
-  private final WPI_TalonSRX     leftLeaderSRX;
-  private final WPI_TalonSRX     leftFollowerSRX;
-  private final WPI_TalonSRX     rightLeaderSRX;
-  private final WPI_TalonSRX     rightFollowerSRX;
+  private final WPI_TalonSRX     leftLeader;
+  private final WPI_TalonSRX     leftFollower;
+  private final WPI_TalonSRX     rightLeader;
+  private final WPI_TalonSRX     rightFollower;
 
   public final DifferentialDrive drive;
 
@@ -26,6 +28,7 @@ public class DriveSubsystem extends SubsystemBase
   TalonSRXConfiguration DriveSRXConfig( )
   {
     TalonSRXConfiguration driveConfig = new TalonSRXConfiguration( );
+    driveConfig.peakCurrentLimit = DriveConstants.DRIVE_MOTOR_CURRENT_LIMIT;
 
     return driveConfig;
   }
@@ -33,31 +36,40 @@ public class DriveSubsystem extends SubsystemBase
   public DriveSubsystem( )
   {
 
-    leftLeaderSRX = new WPI_TalonSRX(DriveConstants.LEFT_LEADER_ID);
-    leftFollowerSRX = new WPI_TalonSRX(DriveConstants.LEFT_FOLLOWER_ID);
-    rightLeaderSRX = new WPI_TalonSRX(DriveConstants.RIGHT_LEADER_ID);
-    rightFollowerSRX = new WPI_TalonSRX(DriveConstants.LEFT_FOLLOWER_ID);
+    leftLeader = new WPI_TalonSRX(DriveConstants.LEFT_LEADER_ID);
+    leftFollower = new WPI_TalonSRX(DriveConstants.LEFT_FOLLOWER_ID);
+    rightLeader = new WPI_TalonSRX(DriveConstants.RIGHT_LEADER_ID);
+    rightFollower = new WPI_TalonSRX(DriveConstants.LEFT_FOLLOWER_ID);
 
-    drive = new DifferentialDrive(leftLeaderSRX, rightLeaderSRX);
+    drive = new DifferentialDrive(leftLeader, rightLeader);
 
-    leftLeaderSRX.configAllSettings(DriveSRXConfig( ));
-    rightLeaderSRX.configAllSettings(DriveSRXConfig( ));
-    leftFollowerSRX.configAllSettings(DriveSRXConfig( ));
-    rightFollowerSRX.configAllSettings(DriveSRXConfig( ));
+    leftLeader.configAllSettings(DriveSRXConfig( ));
+    rightLeader.configAllSettings(DriveSRXConfig( ));
+    leftFollower.configAllSettings(DriveSRXConfig( ));
+    rightFollower.configAllSettings(DriveSRXConfig( ));
 
-    leftLeaderSRX.setNeutralMode(NeutralMode.Coast);
-    rightLeaderSRX.setNeutralMode(NeutralMode.Coast);
-    leftFollowerSRX.setNeutralMode(NeutralMode.Coast);
-    rightFollowerSRX.setNeutralMode(NeutralMode.Coast);
+    leftLeader.enableVoltageCompensation(true);
+    rightLeader.enableVoltageCompensation(true);
+    leftFollower.enableVoltageCompensation(true);
+    rightFollower.enableVoltageCompensation(true);
 
-    leftLeaderSRX.setInverted(false);
-    leftFollowerSRX.setInverted(false);
-    rightLeaderSRX.setInverted(true);
-    rightFollowerSRX.setInverted(true);
+    leftLeader.configVoltageCompSaturation(DriveConstants.DRIVE_MOTOR_VOLTAGE_COMP, 250);
+    rightLeader.configVoltageCompSaturation(DriveConstants.DRIVE_MOTOR_VOLTAGE_COMP, 250);
+    leftFollower.configVoltageCompSaturation(DriveConstants.DRIVE_MOTOR_VOLTAGE_COMP, 250);
+    rightFollower.configVoltageCompSaturation(DriveConstants.DRIVE_MOTOR_VOLTAGE_COMP, 250);
 
-    leftFollowerSRX.follow(leftLeaderSRX);
-    rightFollowerSRX.follow(rightLeaderSRX);
+    leftLeader.setNeutralMode(NeutralMode.Coast);
+    rightLeader.setNeutralMode(NeutralMode.Coast);
+    leftFollower.setNeutralMode(NeutralMode.Coast);
+    rightFollower.setNeutralMode(NeutralMode.Coast);
 
+    leftLeader.setInverted(false);
+    leftFollower.setInverted(false);
+    rightLeader.setInverted(true);
+    rightFollower.setInverted(true);
+
+    leftFollower.follow(leftLeader);
+    rightFollower.follow(rightLeader);
   }
 
   @Override
@@ -65,8 +77,7 @@ public class DriveSubsystem extends SubsystemBase
   {}
 
   /**
-   * Use this to control your drive train, with one axis of the controller moving
-   * the robot
+   * Use this to control your drive train, with one axis of the controller moving the robot
    * forwards and backwards with the other axis turning the robot.
    * 
    * Additionally if squared is true, it will square your controller inputs,
