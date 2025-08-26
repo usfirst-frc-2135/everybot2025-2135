@@ -1,24 +1,24 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-// import frc.robot.Constants.OperatorConstants;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import frc.robot.Constants.ArmConstants;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.RollerConstants;
 
 public class RollerSubsystem extends SubsystemBase
 {
-
     private final WPI_TalonSRX rollerMotor;
 
     TalonSRXConfiguration RollerSRXConfig( )
     {
+        // Create a new config object with factory default settings
         TalonSRXConfiguration rollerConfig = new TalonSRXConfiguration( );
+
+        // Apply the needed changes from the default settings
         rollerConfig.peakCurrentLimit = RollerConstants.ROLLER_MOTOR_CURRENT_LIMIT;
+
         return rollerConfig;
     }
 
@@ -31,10 +31,11 @@ public class RollerSubsystem extends SubsystemBase
         rollerMotor = new WPI_TalonSRX(RollerConstants.ROLLER_MOTOR_ID);
         rollerMotor.setInverted(true);
         rollerMotor.enableVoltageCompensation(true);
-        rollerMotor.configVoltageCompSaturation(RollerConstants.ROLLER_MOTOR_VOLTAGE_COMP, 250);
+        rollerMotor.configVoltageCompSaturation(RollerConstants.ROLLER_MOTOR_VOLTAGE_COMP, 250); // TODO: Move this to config above
         rollerMotor.setNeutralMode(NeutralMode.Brake);
 
-        rollerMotor.configAllSettings(RollerSRXConfig( ));
+        // This erases any prior configuration and applies new config settings
+        rollerMotor.configAllSettings(RollerSRXConfig( ));       // TODO: This should be the FIRST call after declaring new WPI_TalonSRX above
     }
 
     @Override
