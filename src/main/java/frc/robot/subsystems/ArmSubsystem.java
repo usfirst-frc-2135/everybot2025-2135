@@ -9,15 +9,17 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.Constants.ArmConstants;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.ArmConstants;
 
 public class ArmSubsystem extends SubsystemBase
 {
-
     private final WPI_TalonSRX armMotor;
 
     TalonSRXConfiguration ArmSRXConfig( )
     {
         TalonSRXConfiguration armConfig = new TalonSRXConfiguration( );
+        armConfig.peakCurrentLimit = ArmConstants.ARM_MOTOR_CURRENT_LIMIT;
+
         return armConfig;
     }
 
@@ -30,6 +32,7 @@ public class ArmSubsystem extends SubsystemBase
         armMotor = new WPI_TalonSRX(ArmConstants.ARM_MOTOR_ID);
         armMotor.setInverted(true);
         armMotor.enableVoltageCompensation(true);
+        armMotor.configVoltageCompSaturation(ArmConstants.ARM_MOTOR_VOLTAGE_COMP, 250);
 
         armMotor.configAllSettings(ArmSRXConfig( ));
         armMotor.setNeutralMode(NeutralMode.Brake);

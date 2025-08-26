@@ -6,6 +6,8 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 // import frc.robot.Constants.OperatorConstants;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.RollerConstants;
 
 public class RollerSubsystem extends SubsystemBase
@@ -16,6 +18,7 @@ public class RollerSubsystem extends SubsystemBase
     TalonSRXConfiguration RollerSRXConfig( )
     {
         TalonSRXConfiguration rollerConfig = new TalonSRXConfiguration( );
+        rollerConfig.peakCurrentLimit = RollerConstants.ROLLER_MOTOR_CURRENT_LIMIT;
         return rollerConfig;
     }
 
@@ -28,6 +31,7 @@ public class RollerSubsystem extends SubsystemBase
         rollerMotor = new WPI_TalonSRX(RollerConstants.ROLLER_MOTOR_ID);
         rollerMotor.setInverted(true);
         rollerMotor.enableVoltageCompensation(true);
+        rollerMotor.configVoltageCompSaturation(RollerConstants.ROLLER_MOTOR_VOLTAGE_COMP, 250);
         rollerMotor.setNeutralMode(NeutralMode.Brake);
 
         rollerMotor.configAllSettings(RollerSRXConfig( ));
