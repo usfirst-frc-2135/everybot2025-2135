@@ -1,11 +1,12 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+// import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+// import com.ctre.phoenix6.hardware.TalonFX;
+// import frc.robot.Constants.OperatorConstants;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix6.hardware.TalonFX;
 import frc.robot.Constants.ArmConstants;
-import frc.robot.Constants.OperatorConstants;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -28,8 +29,10 @@ public class ArmSubsystem extends SubsystemBase
         // Set up the arm motor as a brushed motor
         armMotor = new WPI_TalonSRX(ArmConstants.ARM_MOTOR_ID);
         armMotor.setInverted(true);
+        armMotor.enableVoltageCompensation(true);
 
         armMotor.configAllSettings(ArmSRXConfig( ));
+        armMotor.setNeutralMode(NeutralMode.Brake);
 
     }
 

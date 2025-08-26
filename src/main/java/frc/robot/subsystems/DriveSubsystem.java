@@ -11,24 +11,27 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
-public class DriveSubsystem extends SubsystemBase {
-  private final WPI_TalonSRX leftLeaderSRX;
-  private final WPI_TalonSRX leftFollowerSRX;
-  private final WPI_TalonSRX rightLeaderSRX;
-  private final WPI_TalonSRX rightFollowerSRX;
+public class DriveSubsystem extends SubsystemBase
+{
+  private final WPI_TalonSRX     leftLeaderSRX;
+  private final WPI_TalonSRX     leftFollowerSRX;
+  private final WPI_TalonSRX     rightLeaderSRX;
+  private final WPI_TalonSRX     rightFollowerSRX;
 
   public final DifferentialDrive drive;
 
   /**
    * The subsystem used to drive the robot.
    */
-  TalonSRXConfiguration DriveSRXConfig() {
-    TalonSRXConfiguration driveConfig = new TalonSRXConfiguration();
+  TalonSRXConfiguration DriveSRXConfig( )
+  {
+    TalonSRXConfiguration driveConfig = new TalonSRXConfiguration( );
 
     return driveConfig;
   }
 
-  public DriveSubsystem() {
+  public DriveSubsystem( )
+  {
 
     leftLeaderSRX = new WPI_TalonSRX(DriveConstants.LEFT_LEADER_ID);
     leftFollowerSRX = new WPI_TalonSRX(DriveConstants.LEFT_FOLLOWER_ID);
@@ -37,10 +40,10 @@ public class DriveSubsystem extends SubsystemBase {
 
     drive = new DifferentialDrive(leftLeaderSRX, rightLeaderSRX);
 
-    leftLeaderSRX.configAllSettings(DriveSRXConfig());
-    rightLeaderSRX.configAllSettings(DriveSRXConfig());
-    leftFollowerSRX.configAllSettings(DriveSRXConfig());
-    rightFollowerSRX.configAllSettings(DriveSRXConfig());
+    leftLeaderSRX.configAllSettings(DriveSRXConfig( ));
+    rightLeaderSRX.configAllSettings(DriveSRXConfig( ));
+    leftFollowerSRX.configAllSettings(DriveSRXConfig( ));
+    rightFollowerSRX.configAllSettings(DriveSRXConfig( ));
 
     leftLeaderSRX.setNeutralMode(NeutralMode.Coast);
     rightLeaderSRX.setNeutralMode(NeutralMode.Coast);
@@ -58,8 +61,8 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   @Override
-  public void periodic() {
-  }
+  public void periodic( )
+  {}
 
   /**
    * Use this to control your drive train, with one axis of the controller moving
@@ -70,11 +73,15 @@ public class DriveSubsystem extends SubsystemBase {
    * for instance pushing forwards on the control stick will yield
    * (0.5 * 0.5) = .25 or 25% power to the drivetrain.
    * 
-   * @param xSpeed    the speed forwards to back
-   * @param zRotation the speed to turn at
-   * @param squared   do you square the inputs from the controller
+   * @param xSpeed
+   *          the speed forwards to back
+   * @param zRotation
+   *          the speed to turn at
+   * @param squared
+   *          do you square the inputs from the controller
    */
-  public void driveArcade(double xSpeed, double zRotation, boolean squared) {
+  public void driveArcade(double xSpeed, double zRotation, boolean squared)
+  {
     drive.arcadeDrive(xSpeed, zRotation, squared);
   }
 
@@ -82,11 +89,15 @@ public class DriveSubsystem extends SubsystemBase {
    * Use this to drive the robot, with one stick controlling one
    * side of the drivetrain and the other stick controlling the other.
    * 
-   * @param leftSpeed  speed to drive the left side of the robot at
-   * @param rightSpeed speed to drive the right side of the robot at
-   * @param squared    do you square the inputs from the controller
+   * @param leftSpeed
+   *          speed to drive the left side of the robot at
+   * @param rightSpeed
+   *          speed to drive the right side of the robot at
+   * @param squared
+   *          do you square the inputs from the controller
    */
-  public void driveTank(double leftSpeed, double rightSpeed, boolean squared) {
+  public void driveTank(double leftSpeed, double rightSpeed, boolean squared)
+  {
     drive.tankDrive(leftSpeed, rightSpeed, squared);
   }
 }
