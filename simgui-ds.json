@@ -17,12 +17,22 @@
           "incKey": 68
         },
         {
-          "incKey": 83
+          "decKey": 83,
+          "incKey": 87
         },
         {
           "decKey": 69,
           "decayRate": 0.0,
           "keyRate": 0.009999999776482582
+        },
+        {},
+        {
+          "decKey": 74,
+          "incKey": 76
+        },
+        {
+          "decKey": 75,
+          "incKey": 73
         }
       ],
       "axisCount": 6,
@@ -56,16 +66,6 @@
       "povCount": 1
     },
     {
-      "axisConfig": [
-        {
-          "decKey": 74,
-          "incKey": 76
-        },
-        {
-          "decKey": 73,
-          "incKey": 75
-        }
-      ],
       "axisCount": 6,
       "buttonCount": 12,
       "buttonKeys": [

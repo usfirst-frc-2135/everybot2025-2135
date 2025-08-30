@@ -11,7 +11,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.RollerConstants;
 
 public class DriveSubsystem extends SubsystemBase
 {
@@ -27,22 +26,27 @@ public class DriveSubsystem extends SubsystemBase
    */
   TalonSRXConfiguration DriveSRXConfig( )
   {
+    // Create a new config object with factory default settings
     TalonSRXConfiguration driveConfig = new TalonSRXConfiguration( );
-    driveConfig.peakCurrentLimit = DriveConstants.DRIVE_MOTOR_CURRENT_LIMIT;
+
+    // Apply the needed changes from the default settings
+    driveConfig.peakCurrentLimit = DriveConstants.DRIVE_MOTOR_CURRENT_LIMIT; // TODO: This should be a continuous current limit, not peak
 
     return driveConfig;
   }
 
   public DriveSubsystem( )
   {
-
+    // Create the four motor controller objects
     leftLeader = new WPI_TalonSRX(DriveConstants.LEFT_LEADER_ID);
     leftFollower = new WPI_TalonSRX(DriveConstants.LEFT_FOLLOWER_ID);
     rightLeader = new WPI_TalonSRX(DriveConstants.RIGHT_LEADER_ID);
     rightFollower = new WPI_TalonSRX(DriveConstants.LEFT_FOLLOWER_ID);
 
+    // Create the differential drive object that translates joysticks into motor inputs
     drive = new DifferentialDrive(leftLeader, rightLeader);
 
+    // This erases any prior configuration and applies new config settings
     leftLeader.configAllSettings(DriveSRXConfig( ));
     rightLeader.configAllSettings(DriveSRXConfig( ));
     leftFollower.configAllSettings(DriveSRXConfig( ));
@@ -53,7 +57,7 @@ public class DriveSubsystem extends SubsystemBase
     leftFollower.enableVoltageCompensation(true);
     rightFollower.enableVoltageCompensation(true);
 
-    leftLeader.configVoltageCompSaturation(DriveConstants.DRIVE_MOTOR_VOLTAGE_COMP, 250);
+    leftLeader.configVoltageCompSaturation(DriveConstants.DRIVE_MOTOR_VOLTAGE_COMP, 250); // TODO: This should be in config above
     rightLeader.configVoltageCompSaturation(DriveConstants.DRIVE_MOTOR_VOLTAGE_COMP, 250);
     leftFollower.configVoltageCompSaturation(DriveConstants.DRIVE_MOTOR_VOLTAGE_COMP, 250);
     rightFollower.configVoltageCompSaturation(DriveConstants.DRIVE_MOTOR_VOLTAGE_COMP, 250);
