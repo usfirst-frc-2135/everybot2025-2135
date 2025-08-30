@@ -30,7 +30,11 @@ public class DriveSubsystem extends SubsystemBase
     TalonSRXConfiguration driveConfig = new TalonSRXConfiguration( );
 
     // Apply the needed changes from the default settings
-    driveConfig.peakCurrentLimit = DriveConstants.DRIVE_MOTOR_CURRENT_LIMIT; // TODO: This should be a continuous current limit, not peak
+    driveConfig.continuousCurrentLimit = DriveConstants.DRIVE_MOTOR_CURRENT_LIMIT;
+    leftLeader.configVoltageCompSaturation(DriveConstants.DRIVE_MOTOR_VOLTAGE_COMP, 250);
+    rightLeader.configVoltageCompSaturation(DriveConstants.DRIVE_MOTOR_VOLTAGE_COMP, 250);
+    leftFollower.configVoltageCompSaturation(DriveConstants.DRIVE_MOTOR_VOLTAGE_COMP, 250);
+    rightFollower.configVoltageCompSaturation(DriveConstants.DRIVE_MOTOR_VOLTAGE_COMP, 250);
 
     return driveConfig;
   }
@@ -56,11 +60,6 @@ public class DriveSubsystem extends SubsystemBase
     rightLeader.enableVoltageCompensation(true);
     leftFollower.enableVoltageCompensation(true);
     rightFollower.enableVoltageCompensation(true);
-
-    leftLeader.configVoltageCompSaturation(DriveConstants.DRIVE_MOTOR_VOLTAGE_COMP, 250); // TODO: This should be in config above
-    rightLeader.configVoltageCompSaturation(DriveConstants.DRIVE_MOTOR_VOLTAGE_COMP, 250);
-    leftFollower.configVoltageCompSaturation(DriveConstants.DRIVE_MOTOR_VOLTAGE_COMP, 250);
-    rightFollower.configVoltageCompSaturation(DriveConstants.DRIVE_MOTOR_VOLTAGE_COMP, 250);
 
     leftLeader.setNeutralMode(NeutralMode.Coast);
     rightLeader.setNeutralMode(NeutralMode.Coast);

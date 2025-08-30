@@ -17,7 +17,8 @@ public class ArmSubsystem extends SubsystemBase
         TalonSRXConfiguration armConfig = new TalonSRXConfiguration( );
 
         // Apply the needed changes from the default settings
-        armConfig.peakCurrentLimit = ArmConstants.ARM_MOTOR_CURRENT_LIMIT;  // TODO: This should be a continuous current limit, not peak
+        armConfig.continuousCurrentLimit = ArmConstants.ARM_MOTOR_CURRENT_LIMIT;
+        armMotor.configVoltageCompSaturation(ArmConstants.ARM_MOTOR_VOLTAGE_COMP, 250);
 
         return armConfig;
     }
@@ -29,12 +30,10 @@ public class ArmSubsystem extends SubsystemBase
     {
         // Set up the arm motor as a brushed motor
         armMotor = new WPI_TalonSRX(ArmConstants.ARM_MOTOR_ID);
+        armMotor.configAllSettings(armSRXConfig( ));
         armMotor.setInverted(true);
         armMotor.enableVoltageCompensation(true);
-        armMotor.configVoltageCompSaturation(ArmConstants.ARM_MOTOR_VOLTAGE_COMP, 250); // TODO: Move this to config above
-
         // This erases any prior configuration and applies new config settings
-        armMotor.configAllSettings(armSRXConfig( ));        // TODO: This should be the FIRST call after declaring new WPI_TalonSRX above
         armMotor.setNeutralMode(NeutralMode.Brake);
     }
 
