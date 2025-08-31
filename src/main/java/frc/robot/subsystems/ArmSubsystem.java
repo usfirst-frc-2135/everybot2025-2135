@@ -18,7 +18,7 @@ public class ArmSubsystem extends SubsystemBase
 
         // Apply the needed changes from the default settings
         armConfig.continuousCurrentLimit = ArmConstants.ARM_MOTOR_CURRENT_LIMIT;
-        armMotor.configVoltageCompSaturation(ArmConstants.ARM_MOTOR_VOLTAGE_COMP, 250);
+        armConfig.voltageCompSaturation = ArmConstants.ARM_MOTOR_VOLTAGE_COMP;
 
         return armConfig;
     }

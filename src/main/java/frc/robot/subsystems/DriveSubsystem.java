@@ -31,10 +31,7 @@ public class DriveSubsystem extends SubsystemBase
 
     // Apply the needed changes from the default settings
     driveConfig.continuousCurrentLimit = DriveConstants.DRIVE_MOTOR_CURRENT_LIMIT;
-    leftLeader.configVoltageCompSaturation(DriveConstants.DRIVE_MOTOR_VOLTAGE_COMP, 250);
-    rightLeader.configVoltageCompSaturation(DriveConstants.DRIVE_MOTOR_VOLTAGE_COMP, 250);
-    leftFollower.configVoltageCompSaturation(DriveConstants.DRIVE_MOTOR_VOLTAGE_COMP, 250);
-    rightFollower.configVoltageCompSaturation(DriveConstants.DRIVE_MOTOR_VOLTAGE_COMP, 250);
+    driveConfig.voltageCompSaturation = DriveConstants.DRIVE_MOTOR_VOLTAGE_COMP;
 
     return driveConfig;
   }
@@ -45,7 +42,7 @@ public class DriveSubsystem extends SubsystemBase
     leftLeader = new WPI_TalonSRX(DriveConstants.LEFT_LEADER_ID);
     leftFollower = new WPI_TalonSRX(DriveConstants.LEFT_FOLLOWER_ID);
     rightLeader = new WPI_TalonSRX(DriveConstants.RIGHT_LEADER_ID);
-    rightFollower = new WPI_TalonSRX(DriveConstants.LEFT_FOLLOWER_ID);
+    rightFollower = new WPI_TalonSRX(DriveConstants.RIGHT_FOLLOWER_ID);
 
     // Create the differential drive object that translates joysticks into motor inputs
     drive = new DifferentialDrive(leftLeader, rightLeader);

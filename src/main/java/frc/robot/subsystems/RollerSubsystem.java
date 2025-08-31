@@ -18,7 +18,7 @@ public class RollerSubsystem extends SubsystemBase
 
         // Apply the needed changes from the default settings
         rollerConfig.continuousCurrentLimit = RollerConstants.ROLLER_MOTOR_CURRENT_LIMIT;
-        rollerMotor.configVoltageCompSaturation(RollerConstants.ROLLER_MOTOR_VOLTAGE_COMP, 250);
+        rollerConfig.voltageCompSaturation = RollerConstants.ROLLER_MOTOR_VOLTAGE_COMP;
 
         return rollerConfig;
     }
