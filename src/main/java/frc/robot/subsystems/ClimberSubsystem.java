@@ -1,22 +1,16 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
-import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
-import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
+
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimberConstants;
 
 public class ClimberSubsystem extends SubsystemBase
 {
-    final TalonFX m_climbMotor;
+    private TalonFX m_climbMotor = new TalonFX(ClimberConstants.CLIMBER_MOTOR_ID);
     // Set up the climb motor as a brushless motor
 
     /**
@@ -24,11 +18,11 @@ public class ClimberSubsystem extends SubsystemBase
      */
     TalonFXConfiguration climberFXConfig( )
     {
-        var limitConfigs = new CurrentLimitsConfigs( );
-        limitConfigs.StatorCurrentLimit = ClimberConstants.CLIMBER_MOTOR_CURRENT_LIMIT;
-        limitConfigs.StatorCurrentLimitEnable = true;
         TalonFXConfiguration climberConfig = new TalonFXConfiguration( );
-        MotorOutputConfigs mode = new MotorOutputConfigs( ).withNeutralMode(NeutralModeValue.Brake);
+
+        climberConfig.CurrentLimits.StatorCurrentLimitEnable = true;
+        climberConfig.CurrentLimits.StatorCurrentLimit = ClimberConstants.CLIMBER_MOTOR_CURRENT_LIMIT;
+        climberConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
         return climberConfig;
 
@@ -36,7 +30,9 @@ public class ClimberSubsystem extends SubsystemBase
 
     public ClimberSubsystem( )
     {
-        m_climbMotor = new TalonFX(ClimberConstants.CLIMBER_MOTOR_ID);
+        m_climbMotor.setVoltage(12);
+
+        m_climbMotor.getConfigurator( ).apply(climberFXConfig( ));
 
         // m_climbMotor.enableVoltageCompensation(true);
         // m_climbMotor.configVoltageComSaturation(12);
