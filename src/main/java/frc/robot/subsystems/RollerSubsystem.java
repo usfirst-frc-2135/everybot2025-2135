@@ -11,7 +11,7 @@ public class RollerSubsystem extends SubsystemBase
 {
     private final WPI_TalonSRX rollerMotor;
 
-    TalonSRXConfiguration RollerSRXConfig( )
+    TalonSRXConfiguration rollerSRXConfig( )
     {
         // Create a new config object with factory default settings
         TalonSRXConfiguration rollerConfig = new TalonSRXConfiguration( );
@@ -30,13 +30,13 @@ public class RollerSubsystem extends SubsystemBase
     {
         // Set up the roller motor as a brushed motor
         rollerMotor = new WPI_TalonSRX(RollerConstants.ROLLER_MOTOR_ID);
-        rollerMotor.configAllSettings(RollerSRXConfig( ));
+
+        // This erases any prior configuration and applies new config settings
+        rollerMotor.configAllSettings(rollerSRXConfig( ));
+
         rollerMotor.setInverted(true);
         rollerMotor.enableVoltageCompensation(true);
         rollerMotor.setNeutralMode(NeutralMode.Brake);
-
-        // This erases any prior configuration and applies new config settings
-
     }
 
     @Override

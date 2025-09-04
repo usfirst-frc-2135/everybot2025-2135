@@ -24,7 +24,7 @@ public class DriveSubsystem extends SubsystemBase
   /**
    * The subsystem used to drive the robot.
    */
-  TalonSRXConfiguration DriveSRXConfig( )
+  TalonSRXConfiguration driveSRXConfig( )
   {
     // Create a new config object with factory default settings
     TalonSRXConfiguration driveConfig = new TalonSRXConfiguration( );
@@ -48,10 +48,10 @@ public class DriveSubsystem extends SubsystemBase
     drive = new DifferentialDrive(leftLeader, rightLeader);
 
     // This erases any prior configuration and applies new config settings
-    leftLeader.configAllSettings(DriveSRXConfig( ));
-    rightLeader.configAllSettings(DriveSRXConfig( ));
-    leftFollower.configAllSettings(DriveSRXConfig( ));
-    rightFollower.configAllSettings(DriveSRXConfig( ));
+    leftLeader.configAllSettings(driveSRXConfig( ));
+    rightLeader.configAllSettings(driveSRXConfig( ));
+    leftFollower.configAllSettings(driveSRXConfig( ));
+    rightFollower.configAllSettings(driveSRXConfig( ));
 
     leftLeader.enableVoltageCompensation(true);
     rightLeader.enableVoltageCompensation(true);

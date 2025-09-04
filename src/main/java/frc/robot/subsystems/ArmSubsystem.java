@@ -30,10 +30,12 @@ public class ArmSubsystem extends SubsystemBase
     {
         // Set up the arm motor as a brushed motor
         armMotor = new WPI_TalonSRX(ArmConstants.ARM_MOTOR_ID);
+
+        // This erases any prior configuration and applies new config settings
         armMotor.configAllSettings(armSRXConfig( ));
+
         armMotor.setInverted(true);
         armMotor.enableVoltageCompensation(true);
-        // This erases any prior configuration and applies new config settings
         armMotor.setNeutralMode(NeutralMode.Brake);
     }
 
