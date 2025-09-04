@@ -34,8 +34,6 @@ public class ClimberSubsystem extends SubsystemBase
 
         m_climbMotor.getConfigurator( ).apply(climberFXConfig( ));
 
-        // m_climbMotor.enableVoltageCompensation(true);
-        // m_climbMotor.configVoltageComSaturation(12);
         // m_climbMotor.set(ControlMode.PercentOutput, 1.0);
 
     }
