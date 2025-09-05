@@ -30,9 +30,9 @@ public class ClimberSubsystem extends SubsystemBase
 
     public ClimberSubsystem( )
     {
-        m_climbMotor.setVoltage(12);
-
         m_climbMotor.getConfigurator( ).apply(climberFXConfig( ));
+
+        m_climbMotor.setInverted(true);
 
         // m_climbMotor.set(ControlMode.PercentOutput, 1.0);
 
@@ -52,6 +52,6 @@ public class ClimberSubsystem extends SubsystemBase
      */
     public void runClimber(double speed)
     {
-        m_climbMotor.set(speed);
+        m_climbMotor.setVoltage(12.0 * speed);
     }
 }
