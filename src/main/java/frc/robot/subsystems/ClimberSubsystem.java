@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -10,32 +11,30 @@ import frc.robot.Constants.ClimberConstants;
 
 public class ClimberSubsystem extends SubsystemBase
 {
-    private TalonFX m_climbMotor = new TalonFX(ClimberConstants.CLIMBER_MOTOR_ID);
     // Set up the climb motor as a brushless motor
+    private TalonFX m_climbMotor = new TalonFX(ClimberConstants.CLIMBER_MOTOR_ID);
 
     /**
      * This subsytem that controls the climber.
      */
     TalonFXConfiguration climberFXConfig( )
     {
+        // Create a new config object with factory default settings
         TalonFXConfiguration climberConfig = new TalonFXConfiguration( );
 
-        climberConfig.CurrentLimits.StatorCurrentLimitEnable = true;
+        // Apply the needed changes from the default settings
         climberConfig.CurrentLimits.StatorCurrentLimit = ClimberConstants.CLIMBER_MOTOR_CURRENT_LIMIT;
+        climberConfig.CurrentLimits.StatorCurrentLimitEnable = true;
+
         climberConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+        climberConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
 
         return climberConfig;
-
     }
 
     public ClimberSubsystem( )
     {
         m_climbMotor.getConfigurator( ).apply(climberFXConfig( ));
-
-        m_climbMotor.setInverted(true);
-
-        // m_climbMotor.set(ControlMode.PercentOutput, 1.0);
-
     }
 
     @Override
@@ -52,6 +51,7 @@ public class ClimberSubsystem extends SubsystemBase
      */
     public void runClimber(double speed)
     {
-        m_climbMotor.setVoltage(12.0 * speed);
+        // Convert percent output to units of voltage
+        m_climbMotor.setVoltage(speed * 12.0);
     }
 }
