@@ -27,7 +27,7 @@ public class ClimberSubsystem extends SubsystemBase
         climberConfig.CurrentLimits.StatorCurrentLimitEnable = true;
 
         climberConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-        climberConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+        climberConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
 
         return climberConfig;
     }
